@@ -71,7 +71,11 @@ const GameEmbed = ({ game }) => {
     return (
         <div
             ref={containerRef}
-            className={`relative bg-black ${isFullscreen ? 'fixed inset-0 z-50' : 'w-full aspect-video'}`}
+            className={`relative bg-black ${
+                isFullscreen
+                    ? 'fixed inset-0 z-50'
+                    : 'w-full max-w-5xl mx-auto aspect-video max-h-[75vh]'
+            }`}
         >
             {!isPlaying ? (
                 // Play button overlay
