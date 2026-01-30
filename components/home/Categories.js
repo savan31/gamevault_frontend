@@ -7,6 +7,18 @@ import { Spinner } from '../common/Loader';
 export default function Categories() {
     const { categories, isLoading } = useCategories();
 
+    // Only show categories that have games and match the allowed categories
+    const allowedCategorySlugs = ['shooting', 'racing', 'sport', 'sports', 'multiplayer'];
+    
+    const activeCategories = (categories || [])
+        .filter(category => {
+            const slug = category.slug?.toLowerCase() || '';
+            const hasGames = (category.game_count || 0) > 0;
+            const isAllowed = allowedCategorySlugs.includes(slug);
+            return hasGames && isAllowed;
+        })
+        .sort((a, b) => (b.game_count || 0) - (a.game_count || 0)); // Sort by game count
+
     if (isLoading) {
         return (
             <section id="categories" className="py-12 bg-dark-800/30">
@@ -20,7 +32,7 @@ export default function Categories() {
         );
     }
 
-    if (!categories || categories.length === 0) {
+    if (!activeCategories || activeCategories.length === 0) {
         return null;
     }
 
@@ -30,7 +42,7 @@ export default function Categories() {
                 <h2 className="section-title">🎮 Browse by Category</h2>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    {categories.map((category, index) => {
+                    {activeCategories.map((category, index) => {
                         const slug = category.slug.toLowerCase();
                         const icon = CATEGORY_ICONS[slug] || category.icon || '🎮';
                         const gradientClass = CATEGORY_COLORS[slug] || 'from-gray-500 to-gray-600';
