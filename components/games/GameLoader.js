@@ -40,16 +40,9 @@ const GameLoader = ({ game, onGameStart, onGameOver, onGamePause, onGameResume }
         );
     }
 
-    // If it's not a local game (external iframe), show message
-    if (!isLocalGame && !GameComponent) {
-        return (
-            <div className="w-full aspect-video bg-gray-800 flex items-center justify-center">
-                <div className="text-center">
-                    <p className="text-gray-400 mb-2">External games are no longer supported</p>
-                    <p className="text-gray-500 text-sm">We are transitioning to locally hosted games only. Please check back soon for updated games.</p>
-                </div>
-            </div>
-        );
+    // If it's not a local game, return null (GameEmbed will handle iframe)
+    if (!isLocalGame) {
+        return null;
     }
 
     // If we have a component, render it
