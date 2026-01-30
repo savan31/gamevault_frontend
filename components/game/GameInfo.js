@@ -60,6 +60,54 @@ const GameInfo = ({ game }) => {
         }
     };
 
+    // Get game-specific instructions
+    const getGameInstructions = () => {
+        const slug = game?.slug?.toLowerCase() || '';
+        
+        if (slug === 'snake' || slug === 'snake-game') {
+            return {
+                description: 'Snake is a classic arcade game where you control a snake that grows longer as it eats food. Navigate through the grid, avoid walls and your own tail, and try to achieve the highest score possible!',
+                instructions: `How to Play Snake:
+
+1. Use the arrow keys (↑ ↓ ← →) or WASD keys to control the snake's direction
+2. Guide the snake to eat the red food items to grow longer and increase your score
+3. Avoid hitting the walls or your own tail - this will end the game
+4. The game speeds up as your score increases, making it more challenging
+5. Press Space or Escape to pause/resume the game
+6. Try to achieve the highest score possible!
+
+Controls:
+- Arrow Keys or WASD: Move the snake
+- Space/Escape: Pause/Resume
+- Click "Start Game" to begin playing`
+            };
+        }
+        
+        if (slug === 'breakout' || slug === 'breakout-game') {
+            return {
+                description: 'Breakout is an exciting arcade game where you control a paddle to bounce a ball and break bricks. Clear all the bricks to complete the level while avoiding letting the ball fall!',
+                instructions: `How to Play Breakout:
+
+1. Move your mouse to control the purple paddle at the bottom of the screen
+2. The ball will bounce off your paddle - position the paddle to aim the ball at the bricks
+3. Break all the colored bricks to complete the level
+4. You have 3 lives - if the ball falls below the paddle, you lose a life
+5. Each brick you break gives you 10 points
+6. Press Space or Escape to pause/resume the game
+7. Try to achieve the highest score possible!
+
+Controls:
+- Mouse: Move the paddle left and right
+- Space/Escape: Pause/Resume
+- Click "Start Game" to begin playing`
+            };
+        }
+        
+        return null;
+    };
+
+    const gameInstructions = getGameInstructions();
+
     // Return null or loading state if no game data
     if (!game) {
         return (
@@ -116,6 +164,27 @@ const GameInfo = ({ game }) => {
                     <FaShare />
                     Share
                 </button>
+                {/* Rewarded Ad Button - Only shown when user clicks (compliance requirement) */}
+                <button
+                    onClick={async () => {
+                        if (window.showRewardedAd) {
+                            try {
+                                const result = await window.showRewardedAd();
+                                if (result) {
+                                    toast.success('Reward unlocked! Thank you for watching.');
+                                }
+                            } catch (error) {
+                                console.error('Rewarded ad error:', error);
+                                toast.error('Ad not available at this time.');
+                            }
+                        } else {
+                            toast.info('Rewarded ads coming soon!');
+                        }
+                    }}
+                    className="flex items-center gap-2 px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg font-medium transition-colors"
+                >
+                    🎁 Watch Ad for Reward
+                </button>
             </div>
 
             {/* Badges */}
@@ -141,20 +210,28 @@ const GameInfo = ({ game }) => {
             </div>
 
             {/* Description */}
-            {game.description && (
-                <div className="bg-gray-800 rounded-xl p-6">
-                    <h2 className="text-lg font-semibold text-white mb-3">About This Game</h2>
-                    <p className="text-gray-300 leading-relaxed">{game.description}</p>
-                </div>
-            )}
+            <div className="bg-gray-800 rounded-xl p-6">
+                <h2 className="text-lg font-semibold text-white mb-3">About This Game</h2>
+                <p className="text-gray-300 leading-relaxed whitespace-pre-line">
+                    {game.description || gameInstructions?.description || `Play ${game.title} for free on GameVault. Enjoy hours of entertainment with this exciting HTML5 game!`}
+                </p>
+            </div>
 
-            {/* Instructions */}
-            {game.instructions && (
-                <div className="bg-gray-800 rounded-xl p-6">
-                    <h2 className="text-lg font-semibold text-white mb-3">How to Play</h2>
-                    <p className="text-gray-300 leading-relaxed">{game.instructions}</p>
+            {/* How to Play Section - Required for H5 Games Ads */}
+            <div className="bg-gray-800 rounded-xl p-6">
+                <h2 className="text-lg font-semibold text-white mb-3">How to Play</h2>
+                <div className="text-gray-300 leading-relaxed whitespace-pre-line">
+                    {game.instructions || gameInstructions?.instructions || `Learn how to play ${game.title}:
+
+1. Click the "Start Game" button to begin
+2. Follow the on-screen instructions
+3. Use the controls to play the game
+4. Try to achieve the highest score possible!
+5. Press Space or Escape to pause the game at any time
+
+Enjoy playing ${game.title}!`}
                 </div>
-            )}
+            </div>
         </div>
     );
 };

@@ -9,6 +9,42 @@ import { ThemeProvider } from '@/contexts/ThemeContext';
 function MyApp({ Component, pageProps }) {
     const router = useRouter();
 
+    // Initialize global game lifecycle hooks and H5 Ads hooks
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+
+        // Game Lifecycle Hooks (required for H5 Games Ads Beta)
+        window.gameStart = window.gameStart || (() => {
+            console.log('[Game Lifecycle] Game started');
+        });
+
+        window.gamePause = window.gamePause || (() => {
+            console.log('[Game Lifecycle] Game paused');
+        });
+
+        window.gameResume = window.gameResume || (() => {
+            console.log('[Game Lifecycle] Game resumed');
+        });
+
+        window.gameOver = window.gameOver || ((score) => {
+            console.log('[Game Lifecycle] Game over', score ? `Score: ${score}` : '');
+        });
+
+        // H5 Ads Integration Hooks (placeholders - ready for Google H5 Games Ads Beta)
+        window.showInterstitialAd = window.showInterstitialAd || (() => {
+            console.log('[H5 Ads] Interstitial Ad Triggered');
+            // This will be replaced with actual Google H5 Games Ads SDK integration
+            // Example: google.h5gamesads.showInterstitialAd();
+        });
+
+        window.showRewardedAd = window.showRewardedAd || (() => {
+            console.log('[H5 Ads] Rewarded Ad Triggered');
+            // This will be replaced with actual Google H5 Games Ads SDK integration
+            // Example: google.h5gamesads.showRewardedAd();
+            return Promise.resolve(true); // Return promise for ad completion
+        });
+    }, []);
+
     // Google Analytics page tracking
     useEffect(() => {
         const handleRouteChange = (url) => {
