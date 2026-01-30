@@ -20,29 +20,58 @@ const GameLoader = ({ game, onGameStart, onGameOver, onGamePause, onGameResume }
         );
     }
 
-    // Check if this is a local game
+    // Check if this is a local game by game_type or game_url
+    const isLocalGame = game.game_type === 'local' || 
+                        (game.game_url && game.game_url.startsWith('local://'));
+    
+    // Get game component by slug
     const gameSlug = game.slug?.toLowerCase() || '';
     const GameComponent = GAME_COMPONENTS[gameSlug];
 
-    if (!GameComponent) {
-        // Fallback for games that don't have local versions yet
+    // If it's marked as local but we don't have a component, show error
+    if (isLocalGame && !GameComponent) {
         return (
             <div className="w-full aspect-video bg-gray-800 flex items-center justify-center">
                 <div className="text-center">
-                    <p className="text-gray-400 mb-2">Game not available</p>
-                    <p className="text-gray-500 text-sm">This game is currently being updated.</p>
+                    <p className="text-gray-400 mb-2">Local game not implemented</p>
+                    <p className="text-gray-500 text-sm">This game is marked as local but the component is missing.</p>
                 </div>
             </div>
         );
     }
 
+    // If it's not a local game (external iframe), show message
+    if (!isLocalGame && !GameComponent) {
+        return (
+            <div className="w-full aspect-video bg-gray-800 flex items-center justify-center">
+                <div className="text-center">
+                    <p className="text-gray-400 mb-2">External games are no longer supported</p>
+                    <p className="text-gray-500 text-sm">We are transitioning to locally hosted games only. Please check back soon for updated games.</p>
+                </div>
+            </div>
+        );
+    }
+
+    // If we have a component, render it
+    if (GameComponent) {
+        return (
+            <GameComponent
+                onGameStart={onGameStart}
+                onGameOver={onGameOver}
+                onGamePause={onGamePause}
+                onGameResume={onGameResume}
+            />
+        );
+    }
+
+    // Fallback (shouldn't reach here)
     return (
-        <GameComponent
-            onGameStart={onGameStart}
-            onGameOver={onGameOver}
-            onGamePause={onGamePause}
-            onGameResume={onGameResume}
-        />
+        <div className="w-full aspect-video bg-gray-800 flex items-center justify-center">
+            <div className="text-center">
+                <p className="text-gray-400 mb-2">Game not available</p>
+                <p className="text-gray-500 text-sm">This game is currently being updated.</p>
+            </div>
+        </div>
     );
 };
 
