@@ -3,7 +3,6 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import Layout from '../../components/common/Layout';
 import GameGrid from '../../components/game/GameGrid';
 import { useCategory } from '../../hooks/useApi';
 import { SITE_CONFIG } from '../../lib/constants';
@@ -46,30 +45,24 @@ export default function CategoryPage({ category: initialCategory, games: initial
     const loading = !initialCategory && isLoading;
 
     if (router.isFallback || loading) {
-        return (
-            <Layout>
-                <CategoryPageSkeleton />
-            </Layout>
-        );
+        return <CategoryPageSkeleton />;
     }
 
     if (isError || !category) {
         return (
-            <Layout>
-                <div className="min-h-screen flex items-center justify-center">
-                    <div className="text-center">
-                        <div className="text-6xl mb-4">📁</div>
-                        <h1 className="text-2xl font-bold text-white mb-2">Category Not Found</h1>
-                        <p className="text-gray-400 mb-4">This category doesn&apos;t exist.</p>
-                        <Link
-                            href="/"
-                            className="px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg text-white transition-colors inline-block"
-                        >
-                            Back to Home
-                        </Link>
-                    </div>
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                    <div className="text-6xl mb-4">📁</div>
+                    <h1 className="text-2xl font-bold text-white mb-2">Category Not Found</h1>
+                    <p className="text-gray-400 mb-4">This category doesn&apos;t exist.</p>
+                    <Link
+                        href="/"
+                        className="px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg text-white transition-colors inline-block"
+                    >
+                        Back to Home
+                    </Link>
                 </div>
-            </Layout>
+            </div>
         );
     }
 
@@ -83,23 +76,21 @@ export default function CategoryPage({ category: initialCategory, games: initial
                 />
             </Head>
 
-            <Layout>
-                <div className="min-h-screen bg-gray-900 py-8">
-                    <div className="max-w-7xl mx-auto px-4">
-                        <div className="mb-8">
-                            <div className="flex items-center gap-3 mb-2">
-                                <span className="text-4xl">{category.icon}</span>
-                                <h1 className="text-3xl font-bold text-white">{category.name} Games</h1>
-                            </div>
-                            {category.description && <p className="text-gray-400">{category.description}</p>}
+            <div className="min-h-screen bg-gray-900 py-8">
+                <div className="max-w-7xl mx-auto px-4">
+                    <div className="mb-8">
+                        <div className="flex items-center gap-3 mb-2">
+                            <span className="text-4xl">{category.icon}</span>
+                            <h1 className="text-3xl font-bold text-white">{category.name} Games</h1>
                         </div>
-
-                        <p className="text-gray-500 mb-6">{games?.length || 0} games</p>
-
-                        <GameGrid games={games || []} loading={false} />
+                        {category.description && <p className="text-gray-400">{category.description}</p>}
                     </div>
+
+                    <p className="text-gray-500 mb-6">{games?.length || 0} games</p>
+
+                    <GameGrid games={games || []} loading={false} />
                 </div>
-            </Layout>
+            </div>
         </>
     );
 }

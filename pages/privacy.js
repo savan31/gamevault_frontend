@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Layout from '@/components/common/Layout';
 import Link from 'next/link';
 
 export default function PrivacyPolicyPage() {
@@ -9,8 +8,7 @@ export default function PrivacyPolicyPage() {
                 <title>Privacy Policy - GameVault</title>
                 <meta name="description" content="GameVault Privacy Policy. Learn how we collect, use, and protect your personal information." />
             </Head>
-            <Layout>
-                <main className="min-h-screen bg-gray-900 py-12">
+            <main className="min-h-screen bg-gray-900 py-12">
                     <div className="container mx-auto px-4 max-w-4xl">
                         <h1 className="text-4xl font-bold text-white mb-8">Privacy Policy</h1>
                         <p className="text-gray-400 mb-6">Last updated: {new Date().toLocaleDateString()}</p>
@@ -97,8 +95,7 @@ export default function PrivacyPolicyPage() {
                             </section>
                         </div>
                     </div>
-    </main>
-            </Layout>
+                </main>
         </>
   );
 }

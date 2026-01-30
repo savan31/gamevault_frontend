@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Layout from '@/components/common/Layout';
 import Link from 'next/link';
 
 export default function TermsPage() {
@@ -9,8 +8,7 @@ export default function TermsPage() {
                 <title>Terms of Service - GameVault</title>
                 <meta name="description" content="GameVault Terms of Service. Read our terms and conditions for using our gaming platform." />
             </Head>
-            <Layout>
-                <main className="min-h-screen bg-gray-900 py-12">
+            <main className="min-h-screen bg-gray-900 py-12">
                     <div className="container mx-auto px-4 max-w-4xl">
                         <h1 className="text-4xl font-bold text-white mb-8">Terms of Service</h1>
                         <p className="text-gray-400 mb-6">Last updated: {new Date().toLocaleDateString()}</p>
@@ -115,7 +113,6 @@ export default function TermsPage() {
                         </div>
                     </div>
                 </main>
-            </Layout>
         </>
     );
 }

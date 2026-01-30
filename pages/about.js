@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import Layout from '@/components/common/Layout';
 
 export default function AboutPage() {
     return (
@@ -9,8 +8,7 @@ export default function AboutPage() {
                 <title>About Us - GameVault</title>
                 <meta name="description" content="Learn about GameVault, your premier destination for free HTML5 games. Discover our mission, values, and commitment to providing quality gaming experiences." />
             </Head>
-            <Layout>
-                <main className="min-h-screen bg-gray-900 py-12">
+            <main className="min-h-screen bg-gray-900 py-12">
                     <div className="container mx-auto px-4 max-w-4xl">
                         <h1 className="text-4xl font-bold text-white mb-8">About GameVault</h1>
                         
@@ -78,7 +76,6 @@ export default function AboutPage() {
                         </div>
                     </div>
                 </main>
-            </Layout>
         </>
     );
 }
