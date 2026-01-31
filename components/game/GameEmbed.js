@@ -13,6 +13,7 @@ const resolveGameImage = (title) => {
 const GameEmbed = ({ game }) => {
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [loadError, setLoadError] = useState(false);
     const containerRef = useRef(null);
     const iframeRef = useRef(null);
 
@@ -25,7 +26,21 @@ const GameEmbed = ({ game }) => {
                         (game?.game_url && (game.game_url.startsWith('local://') || game.game_url.startsWith('/games/')));
     
     // Check if it's a local HTML file (not a React component)
+    // For local HTML games, we'll load them through a special route that strips the layout
     const isLocalHTML = (game?.game_url && game.game_url.startsWith('/games/')) || game?.game_type === 'local-html';
+    
+    // Get the game file path for iframe loading
+    // If game_url is a local HTML file, we'll load it directly
+    // But we need to ensure it's a standalone file, not a Next.js page
+    const getGameIframeSrc = () => {
+        if (!game?.game_url) return null;
+        // If it's already a full URL or starts with /games/, use it directly
+        // But we'll add a query param to indicate it's for iframe embedding
+        if (game.game_url.startsWith('/games/')) {
+            return `${game.game_url}?embed=true`;
+        }
+        return game.game_url;
+    };
 
     // Handle fullscreen
     const toggleFullscreen = () => {
@@ -88,29 +103,76 @@ const GameEmbed = ({ game }) => {
         >
             {isLocalHTML ? (
                 // Local HTML file game (embedded in iframe)
-                <>
-                    {isLoading && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-gray-900 z-10">
-                            <div className="flex flex-col items-center gap-4">
-                                <div className="w-12 h-12 border-4 border-purple-600 border-t-transparent rounded-full animate-spin" />
-                                <p className="text-white">Loading game...</p>
-                            </div>
+                loadError ? (
+                    <div className="w-full aspect-video bg-gray-800 flex items-center justify-center">
+                        <div className="text-center p-8">
+                            <p className="text-gray-400 mb-2 text-lg">Game file not found</p>
+                            <p className="text-gray-500 text-sm mb-4">
+                                The game file at <code className="bg-gray-700 px-2 py-1 rounded">{game.game_url}</code> could not be loaded.
+                            </p>
+                            <p className="text-gray-500 text-sm">
+                                Please ensure the game files are uploaded to the <code className="bg-gray-700 px-2 py-1 rounded">public/games/</code> folder.
+                            </p>
                         </div>
-                    )}
-                    <iframe
-                        ref={iframeRef}
-                        src={game.game_url}
-                        title={game.title}
-                        className="w-full h-full border-0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-                        allowFullScreen
-                        onLoad={() => {
-                            handleIframeLoad();
-                            console.log('Game started:', game.title);
-                            if (window.gameStart) window.gameStart();
-                        }}
-                    />
-                </>
+                    </div>
+                ) : (
+                    <>
+                        {isLoading && (
+                            <div className="absolute inset-0 flex items-center justify-center bg-gray-900 z-10">
+                                <div className="flex flex-col items-center gap-4">
+                                    <div className="w-12 h-12 border-4 border-purple-600 border-t-transparent rounded-full animate-spin" />
+                                    <p className="text-white">Loading game...</p>
+                                </div>
+                            </div>
+                        )}
+                        <iframe
+                            ref={iframeRef}
+                            src={getGameIframeSrc() || game.game_url}
+                            title={game.title}
+                            className="w-full h-full border-0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                            allowFullScreen
+                            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+                            onLoad={() => {
+                                handleIframeLoad();
+                                console.log('Game started:', game.title);
+                                if (window.gameStart) window.gameStart();
+                                
+                                // Check if iframe loaded a 404 or error page (website inside website)
+                                setTimeout(() => {
+                                    try {
+                                        const iframe = iframeRef.current;
+                                        if (iframe && iframe.contentWindow) {
+                                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                                            if (iframeDoc && iframeDoc.body) {
+                                                // Check if it's showing the full website (has navigation/header)
+                                                const hasNav = iframeDoc.querySelector('nav, header, [role="banner"]');
+                                                const bodyText = iframeDoc.body?.innerText || '';
+                                                const hasError = bodyText.includes('404') || 
+                                                              bodyText.includes('Not Found') ||
+                                                              (bodyText.includes('GameVault') && bodyText.includes('Home'));
+                                                
+                                                if (hasNav || hasError) {
+                                                    console.warn('⚠️ Game iframe appears to contain full website layout or error page');
+                                                    setLoadError(true);
+                                                    setIsLoading(false);
+                                                }
+                                            }
+                                        }
+                                    } catch (e) {
+                                        // Cross-origin - can't check, assume it's fine
+                                        console.log('Iframe content check (cross-origin):', e.message);
+                                    }
+                                }, 2000);
+                            }}
+                            onError={() => {
+                                setIsLoading(false);
+                                setLoadError(true);
+                                console.error('Failed to load game:', game.title);
+                            }}
+                        />
+                    </>
+                )
             ) : isLocalGame ? (
                 // Local React component game
                 <div className={`w-full ${isFullscreen ? 'h-full flex items-center justify-center' : ''}`}>

@@ -45,6 +45,15 @@ const nextConfig = {
                         value: 'ALLOWALL'
                     }
                 ]
+            },
+            {
+                source: '/games/:path*',
+                headers: [
+                    {
+                        key: 'X-Frame-Options',
+                        value: 'ALLOWALL'
+                    }
+                ]
             }
         ];
     },
@@ -55,6 +64,16 @@ const nextConfig = {
                 destination: '/api/sitemap'
             }
         ];
+    },
+    // Ensure static files in public/games are served correctly
+    webpack: (config, { isServer }) => {
+        if (!isServer) {
+            config.resolve.fallback = {
+                ...config.resolve.fallback,
+                fs: false,
+            };
+        }
+        return config;
     }
 };
 
