@@ -57,8 +57,9 @@ export function useFeaturedGames(limit = 6) {
         ['featured', limit],
         () => fetcher(gamesApi.getFeatured(limit)),
         {
-            revalidateOnFocus: false,
-            dedupingInterval: 300000
+            revalidateOnFocus: true,
+            dedupingInterval: 0,
+            revalidateOnMount: true
         }
     );
 
@@ -76,8 +77,9 @@ export function useTrendingGames(limit = 12) {
         ['trending', limit],
         () => fetcher(gamesApi.getTrending(limit)),
         {
-            revalidateOnFocus: false,
-            dedupingInterval: 300000
+            revalidateOnFocus: true,
+            dedupingInterval: 0,
+            revalidateOnMount: true
         }
     );
 

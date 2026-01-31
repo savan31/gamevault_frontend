@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 
 const resolveHeroImage = (title) => {
     if (title === 'Krunker.io') return '/Krunker.png';
+    if (title === 'Pacman' || title === 'PAC MAN') return '/PAC MAN.png';
     return `/${title}.png`;
 };
 
