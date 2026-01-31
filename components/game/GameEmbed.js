@@ -17,8 +17,15 @@ const GameEmbed = ({ game }) => {
     const iframeRef = useRef(null);
 
     // Check if this is a local game
+    // Local games can be:
+    // 1. React components (game_type === 'local' and game_url starts with 'local://')
+    // 2. Local HTML files (game_url starts with '/games/' or game_type === 'local-html')
     const isLocalGame = game?.game_type === 'local' || 
-                        (game?.game_url && game.game_url.startsWith('local://'));
+                        game?.game_type === 'local-html' ||
+                        (game?.game_url && (game.game_url.startsWith('local://') || game.game_url.startsWith('/games/')));
+    
+    // Check if it's a local HTML file (not a React component)
+    const isLocalHTML = (game?.game_url && game.game_url.startsWith('/games/')) || game?.game_type === 'local-html';
 
     // Handle fullscreen
     const toggleFullscreen = () => {
@@ -79,8 +86,33 @@ const GameEmbed = ({ game }) => {
                     : 'w-full max-w-5xl mx-auto aspect-video max-h-[75vh]'
             }`}
         >
-            {isLocalGame ? (
-                // Local HTML5 game
+            {isLocalHTML ? (
+                // Local HTML file game (embedded in iframe)
+                <>
+                    {isLoading && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-gray-900 z-10">
+                            <div className="flex flex-col items-center gap-4">
+                                <div className="w-12 h-12 border-4 border-purple-600 border-t-transparent rounded-full animate-spin" />
+                                <p className="text-white">Loading game...</p>
+                            </div>
+                        </div>
+                    )}
+                    <iframe
+                        ref={iframeRef}
+                        src={game.game_url}
+                        title={game.title}
+                        className="w-full h-full border-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                        allowFullScreen
+                        onLoad={() => {
+                            handleIframeLoad();
+                            console.log('Game started:', game.title);
+                            if (window.gameStart) window.gameStart();
+                        }}
+                    />
+                </>
+            ) : isLocalGame ? (
+                // Local React component game
                 <div className={`w-full ${isFullscreen ? 'h-full flex items-center justify-center' : ''}`}>
                     <GameLoader
                         game={game}
