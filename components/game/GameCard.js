@@ -5,6 +5,7 @@ import { FaPlay, FaUsers, FaMobileAlt } from 'react-icons/fa';
 const resolveLocalImage = (title) => {
     // Special-case mapping where file names don't exactly match titles
     if (title === 'Krunker.io') return '/Krunker.png';
+    if (title === 'PAC MAN' || title === 'Pacman') return '/PAC MAN.png';
     return `/${title}.png`;
 };
 
