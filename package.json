@@ -27,5 +27,12 @@
     "tailwindcss": "^3.4.1",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.1.0"
-  }
+  },
+  "main": "next.config.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
