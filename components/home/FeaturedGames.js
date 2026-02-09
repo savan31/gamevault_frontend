@@ -1,13 +1,29 @@
+// frontend/components/home/FeaturedGames.js
+
 import Link from 'next/link';
 import { FiPlay, FiArrowRight } from 'react-icons/fi';
 import { useFeaturedGames } from '@/hooks/useApi';
 import { GameGridSkeleton } from '../common/Loader';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 export default function FeaturedGames() {
-    const { games, isLoading } = useFeaturedGames(6);
+    const { games, isLoading, isError } = useFeaturedGames(6);
+    const [renderState, setRenderState] = useState('LOADING'); // LOADING, SUCCESS, EMPTY
 
-    if (isLoading) {
+    useEffect(() => {
+        if (isLoading) {
+            setRenderState('LOADING');
+        } else if (games && games.length > 0) {
+            setRenderState('SUCCESS');
+        } else {
+            setRenderState('EMPTY');
+        }
+    }, [games, isLoading]);
+
+    // For Featured Games, if empty we just hide the section (standard practice)
+    // but we ensure we don't show an empty section while loading.
+    if (renderState === 'LOADING') {
         return (
             <section className="py-12">
                 <div className="container mx-auto px-4">
@@ -18,7 +34,7 @@ export default function FeaturedGames() {
         );
     }
 
-    if (!games || games.length === 0) {
+    if (renderState === 'EMPTY') {
         return null;
     }
 
@@ -45,12 +61,15 @@ export default function FeaturedGames() {
                             transition={{ duration: 0.3, delay: index * 0.1 }}
                         >
                             <Link href={`/game/${game.slug}`} className="block group">
-                                <div className="card-hover relative overflow-hidden">
+                                <div className="card-hover relative overflow-hidden bg-dark-800 rounded-xl">
                                     <div className="aspect-video relative">
                                         <img
                                             src={game.thumbnail_url}
                                             alt={game.title}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                            onError={(e) => {
+                                                e.currentTarget.src = `https://placehold.co/600x400/1e293b/ffffff?text=${encodeURIComponent(game.title)}`;
+                                            }}
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80" />
 
@@ -62,22 +81,22 @@ export default function FeaturedGames() {
                                         </div>
 
                                         {/* Badge */}
-                                        <span className="absolute top-3 left-3 badge bg-yellow-500 text-yellow-900">
-                      ⭐ Featured
-                    </span>
+                                        <span className="absolute top-3 left-3 badge bg-yellow-500 text-yellow-900 border-none">
+                                            ⭐ Featured
+                                        </span>
                                     </div>
 
-                                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                                    <div className="p-4">
                                         <h3 className="text-lg font-semibold text-white truncate group-hover:text-primary-400 transition-colors">
                                             {game.title}
                                         </h3>
                                         <div className="flex items-center justify-between mt-1">
-                      <span className="text-sm text-dark-400">
-                        {game.category_name}
-                      </span>
+                                            <span className="text-sm text-dark-400">
+                                                {game.category_name || 'Arcade'}
+                                            </span>
                                             <span className="text-xs text-dark-500">
-                        {game.plays.toLocaleString()} plays
-                      </span>
+                                                {game.plays?.toLocaleString() || 0} plays
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
