@@ -12,13 +12,13 @@ function generateSiteMap(games) {
        <priority>1.0</priority>
      </url>
      <url>
-       <loc>${SITE_URL}/about</loc>
+       <loc>${SITE_URL}/about-us</loc>
      </url>
      <url>
-       <loc>${SITE_URL}/contact</loc>
+       <loc>${SITE_URL}/contact-us</loc>
      </url>
      <url>
-       <loc>${SITE_URL}/privacy</loc>
+       <loc>${SITE_URL}/privacy-policy</loc>
      </url>
      <url>
        <loc>${SITE_URL}/terms</loc>

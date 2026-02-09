@@ -165,8 +165,8 @@ export default function GamePage() {
             </Head>
 
             <div className="min-h-screen bg-gray-900">
-                {/* Game Embed */}
-                <div className="bg-black">
+                {/* Game Embed - Mandatory 150px buffer below to comply with AdSense policy for gaming sites */}
+                <div className="bg-black mb-[150px]">
                     <div className="max-w-6xl mx-auto">
                         <GameEmbed game={game} />
                     </div>

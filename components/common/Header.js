@@ -117,11 +117,11 @@ export default function Header() {
                             </Link>
                         ))}
                         <Link
-                            href="/contact"
+                            href="/contact-us"
                             onClick={closeMenu}
                             className="text-base font-medium text-dark-200 hover:text-white transition-colors"
                         >
-                            Contact
+                            Contact Us
                         </Link>
                     </nav>
                 </div>

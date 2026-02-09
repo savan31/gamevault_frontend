@@ -26,26 +26,26 @@ export default function EditorialSection({ slug, title }) {
                 <div className="bg-dark-900 border border-dark-800 rounded-3xl p-8 md:p-12 shadow-xl">
                     <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
                         <span className="w-2 h-8 bg-primary-500 rounded-full"></span>
-                        How to Play {title}: The Ultimate Guide
+                        Game Mechanics Review: {title}
                     </h2>
                     <div className="text-dark-300 text-lg leading-relaxed whitespace-pre-wrap mb-10">
-                        {content.howToPlay}
+                        {content.mechanics}
                     </div>
 
                     <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
                         <span className="w-2 h-8 bg-secondary-500 rounded-full"></span>
-                        Mechanical Review & Analysis
+                        Strategic Play Guide & Advanced Tactics
                     </h2>
                     <div className="text-dark-300 text-lg leading-relaxed whitespace-pre-wrap mb-10">
-                        {content.review}
+                        {content.strategic}
                     </div>
 
                     <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
                         <span className="w-2 h-8 bg-green-500 rounded-full"></span>
-                        Advanced Strategies & Pro Tips
+                        Technical Performance Notes & System Requirements
                     </h2>
                     <div className="text-dark-300 text-lg leading-relaxed whitespace-pre-wrap">
-                        {content.strategy}
+                        {content.performance}
                     </div>
                 </div>
             </section>

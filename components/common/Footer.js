@@ -21,9 +21,9 @@ export default function Footer() {
         .sort((a, b) => (b.game_count || 0) - (a.game_count || 0)); // Sort by game count
 
     const companyLinks = [
-        { href: '/about', label: 'About Us' },
-        { href: '/contact', label: 'Contact' },
-        { href: '/privacy', label: 'Privacy Policy' },
+        { href: '/about-us', label: 'About Us' },
+        { href: '/contact-us', label: 'Contact Us' },
+        { href: '/privacy-policy', label: 'Privacy Policy' },
         { href: '/terms', label: 'Terms of Service' }
     ];
 
