@@ -1,82 +1,74 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { FiTarget, FiSmartphone, FiShield, FiCpu } from 'react-icons/fi';
 
 export default function AboutPage() {
     return (
         <>
             <Head>
-                <title>About Us - GameVault</title>
-                <meta name="description" content="Learn about GameVault, your premier destination for free HTML5 games. Discover our mission, values, and commitment to providing quality gaming experiences." />
+                <title>About Us | GameVault - Leading Editorial Gaming Platform</title>
+                <meta name="description" content="Discover the mission behind GameVault. We provide expert-curated HTML5 games, detailed strategy guides, and high-performance browser gaming experiences." />
             </Head>
-            <main className="min-h-screen bg-gray-900 py-12">
-                    <div className="container mx-auto px-4 max-w-4xl">
-                        <h1 className="text-4xl font-bold text-white mb-8">About GameVault</h1>
-                        
-                        <div className="space-y-6 text-gray-300 leading-relaxed">
-                            <section className="bg-gray-800 rounded-xl p-6">
-                                <h2 className="text-2xl font-semibold text-white mb-4">Welcome to GameVault</h2>
-                                <p>
-                                    GameVault is your premier destination for free, high-quality HTML5 games. We are committed to providing an exceptional gaming experience with a diverse collection of games that are playable directly in your web browser, no downloads required.
-                                </p>
-                                <p className="mt-4">
-                                    Our platform features original and open-source games that are fully hosted on our domain, ensuring fast load times, secure gameplay, and a seamless user experience. Whether you're looking for classic arcade games, puzzle games, or action-packed adventures, GameVault has something for everyone.
-                                </p>
-                            </section>
+            <main className="min-h-screen bg-dark-950 py-12 md:py-24">
+                <div className="container mx-auto px-4 max-w-5xl">
+                    <div className="text-center mb-16">
+                        <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">
+                            The <span className="text-gradient">Future</span> of Browser Gaming
+                        </h1>
+                        <p className="text-dark-400 text-xl max-w-2xl mx-auto leading-relaxed">
+                            GameVault is an editorial gaming platform dedicated to archiving, reviewing, and optimizing the finest HTML5 games for the modern web.
+                        </p>
+                    </div>
 
-                            <section className="bg-gray-800 rounded-xl p-6">
-                                <h2 className="text-2xl font-semibold text-white mb-4">Our Mission</h2>
-                                <p>
-                                    At GameVault, our mission is to make gaming accessible to everyone. We believe that entertainment should be free, fast, and available to all, regardless of device or location. Our carefully curated collection of HTML5 games ensures that players can enjoy quality gaming experiences without the need for expensive hardware or software installations.
-                                </p>
-                                <p className="mt-4">
-                                    We are dedicated to maintaining a safe, secure, and user-friendly platform that complies with industry standards and best practices. Our games are optimized for both desktop and mobile devices, ensuring that you can enjoy your favorite games wherever you are.
-                                </p>
-                            </section>
+                    <div className="grid md:grid-cols-2 gap-8 mb-20">
+                        <section className="bg-dark-900 border border-dark-800 rounded-3xl p-8 md:p-10 hover:border-primary-500/30 transition-all duration-500">
+                            <h2 className="text-3xl font-bold text-white mb-6">Our Mission</h2>
+                            <p className="text-dark-300 text-lg mb-4">
+                                Founded in 2026, GameVault was built on a single premise: <span className="text-white italic">Gaming should be instant, free, and high-quality.</span>
+                            </p>
+                            <p className="text-dark-300">
+                                We bridge the gap between complex AAA titles and simple browser fun. Our experts meticulously audit every game in our repository for performance, security, and mechanical depth. We don't just host games; we provide the strategy and context needed to master them.
+                            </p>
+                        </section>
 
-                            <section className="bg-gray-800 rounded-xl p-6">
-                                <h2 className="text-2xl font-semibold text-white mb-4">What Makes Us Different</h2>
-                                <ul className="list-disc list-inside space-y-2 ml-4">
-                                    <li><strong>Locally Hosted Games:</strong> All our games are hosted directly on our servers, ensuring fast load times and reliable gameplay.</li>
-                                    <li><strong>No Downloads Required:</strong> Play instantly in your browser without installing any software or plugins.</li>
-                                    <li><strong>Mobile Responsive:</strong> Our games are optimized for all devices, from desktop computers to smartphones and tablets.</li>
-                                    <li><strong>Original Content:</strong> We feature original and open-source games, ensuring unique and engaging experiences.</li>
-                                    <li><strong>User Privacy:</strong> We respect your privacy and are committed to protecting your personal information.</li>
-                                    <li><strong>Ad-Free Experience:</strong> While we may show ads to support our platform, we ensure they never interfere with your gaming experience.</li>
-                                </ul>
-                            </section>
-
-                            <section className="bg-gray-800 rounded-xl p-6">
-                                <h2 className="text-2xl font-semibold text-white mb-4">Our Commitment to Quality</h2>
-                                <p>
-                                    Quality is at the heart of everything we do at GameVault. We carefully select and test each game to ensure it meets our high standards for gameplay, graphics, and user experience. Our technical team works tirelessly to optimize game performance, fix bugs, and implement new features that enhance your gaming experience.
-                                </p>
-                                <p className="mt-4">
-                                    We are constantly updating our game library with new titles and improvements. Your feedback is invaluable to us, and we encourage you to share your thoughts, suggestions, and report any issues you encounter. Together, we can make GameVault the best gaming platform on the web.
-                                </p>
-                            </section>
-
-                            <section className="bg-gray-800 rounded-xl p-6">
-                                <h2 className="text-2xl font-semibold text-white mb-4">Contact Us</h2>
-                                <p>
-                                    Have questions, suggestions, or feedback? We'd love to hear from you! Visit our <Link href="/contact" className="text-purple-400 hover:text-purple-300 underline">contact page</Link> to get in touch with our team.
-                                </p>
-                                <p className="mt-4">
-                                    For legal inquiries, please review our <Link href="/privacy" className="text-purple-400 hover:text-purple-300 underline">Privacy Policy</Link> and <Link href="/terms" className="text-purple-400 hover:text-purple-300 underline">Terms of Service</Link>.
-                                </p>
-                            </section>
-                        </div>
-
-                        <div className="mt-8 text-center">
-                            <Link
-                                href="/"
-                                className="inline-block px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition-colors"
-                            >
-                                Start Playing Games
-                            </Link>
+                        <div className="grid grid-cols-2 gap-4">
+                            {[
+                                { icon: FiTarget, title: 'Precision', desc: 'Expert-curated game selections.' },
+                                { icon: FiSmartphone, title: 'Mobile', desc: 'Optimized for all screen sizes.' },
+                                { icon: FiShield, title: 'Safe', desc: 'Secure, sandboxed environments.' },
+                                { icon: FiCpu, title: 'Fast', desc: 'Low-latency, high-FPS engine.' }
+                            ].map((feature, i) => (
+                                <div key={i} className="bg-dark-900/40 border border-dark-800 rounded-2xl p-6 flex flex-col justify-center text-center">
+                                    <feature.icon className="w-8 h-8 text-primary-500 mx-auto mb-3" />
+                                    <h3 className="text-white font-bold mb-1">{feature.title}</h3>
+                                    <p className="text-xs text-dark-400">{feature.desc}</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
-                </main>
+
+                    <section className="bg-gradient-to-br from-dark-900 to-dark-800 border border-dark-800 rounded-3xl p-8 md:p-12 mb-20 shadow-2xl">
+                        <h2 className="text-3xl font-bold text-white mb-8 text-center italic">"More Than Just a Repository"</h2>
+                        <div className="space-y-6 text-dark-300 text-lg">
+                            <p>
+                                Unlike generic "play now" sites, GameVault provides a comprehensive editorial layer. For every title, our team produces in-depth guides, mechanical reviews, and advanced strategy analyses. This ensures our community doesn't just play—they improve.
+                            </p>
+                            <p>
+                                We comply with the latest 2026 web standards, ensuring that our site is lightweight, accessible, and respectful of user privacy. Our platform is a safe haven for gamers of all ages to discover the next generation of web-based entertainment.
+                            </p>
+                        </div>
+                    </section>
+
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+                        <Link href="/" className="btn-primary btn-lg min-w-[200px] text-center">
+                            Explore Games
+                        </Link>
+                        <Link href="/contact" className="text-dark-400 hover:text-white transition-colors py-3 px-6 border border-dark-800 rounded-xl hover:bg-dark-800">
+                            Partner with Us
+                        </Link>
+                    </div>
+                </div>
+            </main>
         </>
     );
 }
-

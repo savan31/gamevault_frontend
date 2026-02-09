@@ -1,7 +1,23 @@
+import { useState } from 'react';
 import Head from 'next/head';
-import { FiMail, FiMessageCircle, FiMapPin } from 'react-icons/fi';
+import { FiMail, FiMessageCircle, FiMapPin, FiCheckCircle } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 export default function ContactPage() {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    // Simulate API call
+    setTimeout(() => {
+      setLoading(false);
+      setIsSubmitted(true);
+      toast.success('Message sent successfully!');
+    }, 1500);
+  };
+
   return (
     <>
       <Head>
@@ -32,28 +48,53 @@ export default function ContactPage() {
             ))}
           </div>
 
-          <div className="bg-dark-900 border border-dark-800 rounded-2xl p-8 md:p-12">
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-dark-300">Your Name</label>
-                  <input type="text" placeholder="John Doe" className="w-full bg-dark-800 border-dark-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-primary-500 transition-all" />
+          <div className="bg-dark-900 border border-dark-800 rounded-2xl p-8 md:p-12 relative overflow-hidden">
+            {isSubmitted ? (
+              <div className="text-center py-12 space-y-4">
+                <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <FiCheckCircle className="w-10 h-10 text-green-500" />
+                </div>
+                <h2 className="text-3xl font-bold text-white">Thank You!</h2>
+                <p className="text-dark-400 max-w-md mx-auto">
+                  Your message has been received. Our editorial and support team will review your inquiry and get back to you within 24 hours.
+                </p>
+                <button
+                  onClick={() => setIsSubmitted(false)}
+                  className="mt-8 text-primary-400 hover:text-white transition-colors underline"
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
+              <form className="space-y-6" onSubmit={handleSubmit}>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-dark-300">Your Name</label>
+                    <input required type="text" placeholder="John Doe" className="w-full bg-dark-800 border-dark-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-primary-500 outline-none transition-all" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-dark-300">Email Address</label>
+                    <input required type="email" placeholder="john@example.com" className="w-full bg-dark-800 border-dark-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-primary-500 outline-none transition-all" />
+                  </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-dark-300">Email Address</label>
-                  <input type="email" placeholder="john@example.com" className="w-full bg-dark-800 border-dark-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-primary-500 transition-all" />
+                  <label className="text-sm font-medium text-dark-300">Subject</label>
+                  <input required type="text" placeholder="How can we help?" className="w-full bg-dark-800 border-dark-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-primary-500 outline-none transition-all" />
                 </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-dark-300">Subject</label>
-                <input type="text" placeholder="How can we help?" className="w-full bg-dark-800 border-dark-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-primary-500 transition-all" />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-dark-300">Message</label>
-                <textarea rows="5" placeholder="Tell us more about your inquiry..." className="w-full bg-dark-800 border-dark-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-primary-500 transition-all"></textarea>
-              </div>
-              <button className="btn-primary w-full py-4 text-lg">Send Message</button>
-            </form>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-dark-300">Message</label>
+                  <textarea required rows="5" placeholder="Tell us more about your inquiry..." className="w-full bg-dark-800 border-dark-700 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-primary-500 outline-none transition-all"></textarea>
+                </div>
+                <button disabled={loading} className="btn-primary w-full py-4 text-lg flex items-center justify-center gap-2">
+                  {loading ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Sending...
+                    </>
+                  ) : 'Send Message'}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </main>

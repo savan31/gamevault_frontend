@@ -1,10 +1,6 @@
-# robots.txt for GameVault
-
+# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://gamevault.com/sitemap.xml
-
-# Disallow admin/api routes
-Disallow: /api/
+Sitemap: https://gamevault-alpha.vercel.app/api/sitemap

@@ -2,102 +2,92 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 export default function PrivacyPolicyPage() {
-  return (
+    const lastUpdated = "February 09, 2026";
+
+    return (
         <>
             <Head>
-                <title>Privacy Policy - GameVault</title>
-                <meta name="description" content="GameVault Privacy Policy. Learn how we collect, use, and protect your personal information." />
+                <title>Privacy Policy | GameVault - 2026 Compliant</title>
+                <meta name="description" content="Read GameVault's privacy policy. Learn how we handle your data, our use of cookies for Google AdSense, and your rights under GDPR and CCPA." />
             </Head>
-            <main className="min-h-screen bg-gray-900 py-12">
-                    <div className="container mx-auto px-4 max-w-4xl">
-                        <h1 className="text-4xl font-bold text-white mb-8">Privacy Policy</h1>
-                        <p className="text-gray-400 mb-6">Last updated: {new Date().toLocaleDateString()}</p>
-                        
-                        <div className="space-y-6 text-gray-300 leading-relaxed">
-                            <section className="bg-gray-800 rounded-xl p-6">
-                                <h2 className="text-2xl font-semibold text-white mb-4">Introduction</h2>
-                                <p>
-                                    At GameVault, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our gaming services. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site.
-                                </p>
-                            </section>
-
-                            <section className="bg-gray-800 rounded-xl p-6">
-                                <h2 className="text-2xl font-semibold text-white mb-4">Information We Collect</h2>
-                                <p className="mb-3">We may collect information about you in a variety of ways. The information we may collect on the site includes:</p>
-                                <ul className="list-disc list-inside space-y-2 ml-4">
-                                    <li><strong>Personal Data:</strong> Personally identifiable information, such as your name and email address, that you voluntarily give to us when you register with the site or when you choose to participate in various activities related to the site.</li>
-                                    <li><strong>Derivative Data:</strong> Information our servers automatically collect when you access the site, such as your IP address, browser type, operating system, access times, and the pages you have viewed directly before and after accessing the site.</li>
-                                    <li><strong>Gameplay Data:</strong> Information about your gaming activity, including games played, scores achieved, and time spent playing, which helps us improve our services and provide personalized recommendations.</li>
-                                </ul>
-                            </section>
-
-                            <section className="bg-gray-800 rounded-xl p-6">
-                                <h2 className="text-2xl font-semibold text-white mb-4">How We Use Your Information</h2>
-                                <p className="mb-3">Having accurate information about you permits us to provide you with a smooth, efficient, and customized experience. Specifically, we may use information collected about you via the site to:</p>
-                                <ul className="list-disc list-inside space-y-2 ml-4">
-                                    <li>Create and manage your account</li>
-                                    <li>Process your transactions and send you related information</li>
-                                    <li>Email you regarding your account or order</li>
-                                    <li>Fulfill and manage purchases, orders, payments, and other transactions related to the site</li>
-                                    <li>Generate a personal profile about you to make future visits more personalized</li>
-                                    <li>Increase the efficiency and operation of the site</li>
-                                    <li>Monitor and analyze usage and trends to improve your experience</li>
-                                    <li>Notify you of updates to the site</li>
-                                    <li>Perform other business activities as needed</li>
-                                </ul>
-                            </section>
-
-                            <section className="bg-gray-800 rounded-xl p-6">
-                                <h2 className="text-2xl font-semibold text-white mb-4">Disclosure of Your Information</h2>
-                                <p>
-                                    We may share information we have collected about you in certain situations. Your information may be disclosed as follows:
-                                </p>
-                                <ul className="list-disc list-inside space-y-2 ml-4 mt-3">
-                                    <li><strong>By Law or to Protect Rights:</strong> If we believe the release of information about you is necessary to respond to legal process, to investigate or remedy potential violations of our policies, or to protect the rights, property, and safety of others, we may share your information as permitted or required by any applicable law, rule, or regulation.</li>
-                                    <li><strong>Third-Party Service Providers:</strong> We may share your information with third parties that perform services for us or on our behalf, including payment processing, data analysis, email delivery, hosting services, customer service, and marketing assistance.</li>
-                                    <li><strong>Advertising Partners:</strong> We may share your information with our advertising partners to deliver relevant advertisements to you and measure the effectiveness of our advertising campaigns.</li>
-                                </ul>
-                            </section>
-
-                            <section className="bg-gray-800 rounded-xl p-6">
-                                <h2 className="text-2xl font-semibold text-white mb-4">Third-Party Websites</h2>
-                                <p>
-                                    The site may contain links to third-party websites and applications of interest, including advertisements and external services, that are not affiliated with us. Once you have used these links to leave the site, any information you provide to these third parties is not covered by this Privacy Policy, and we cannot guarantee the safety and privacy of your information.
-                                </p>
-                            </section>
-
-                            <section className="bg-gray-800 rounded-xl p-6">
-                                <h2 className="text-2xl font-semibold text-white mb-4">Security of Your Information</h2>
-                                <p>
-                                    We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse.
-                                </p>
-                            </section>
-
-                            <section className="bg-gray-800 rounded-xl p-6">
-                                <h2 className="text-2xl font-semibold text-white mb-4">Policy for Children</h2>
-                                <p>
-                                    We do not knowingly solicit information from or market to children under the age of 13. If we learn that we have collected personal information from a child under age 13 without verification of parental consent, we will delete that information as quickly as possible. If you believe we have collected information from a child under 13, please contact us immediately.
-                                </p>
-                            </section>
-
-                            <section className="bg-gray-800 rounded-xl p-6">
-                                <h2 className="text-2xl font-semibold text-white mb-4">Changes to This Privacy Policy</h2>
-                                <p>
-                                    We may update this Privacy Policy from time to time in order to reflect changes to our practices or for other operational, legal, or regulatory reasons. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.
-                                </p>
-                            </section>
-
-                            <section className="bg-gray-800 rounded-xl p-6">
-                                <h2 className="text-2xl font-semibold text-white mb-4">Contact Us</h2>
-                                <p>
-                                    If you have questions or comments about this Privacy Policy, please contact us at our <Link href="/contact" className="text-purple-400 hover:text-purple-300 underline">contact page</Link>.
-                                </p>
-                            </section>
-                        </div>
+            <main className="min-h-screen bg-dark-950 py-12 md:py-20">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <div className="mb-12">
+                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Privacy Policy</h1>
+                        <p className="text-dark-400">Last updated: {lastUpdated}</p>
                     </div>
-                </main>
+
+                    <div className="space-y-8 text-dark-300 leading-relaxed">
+                        <section className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6 md:p-8">
+                            <h2 className="text-2xl font-bold text-white mb-4">1. Introduction</h2>
+                            <p>
+                                Welcome to GameVault. Your privacy is critically important to us. This Privacy Policy outlines the types of personal information that is received and collected by GameVault and how it is used. We comply with all 2026 international data standards, including the General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA).
+                            </p>
+                        </section>
+
+                        <section className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6 md:p-8">
+                            <h2 className="text-2xl font-bold text-white mb-4">2. Information We Collect</h2>
+                            <p className="mb-4">We collect information to provide better services to our users. The data we collect includes:</p>
+                            <ul className="list-disc list-inside space-y-3 ml-4">
+                                <li><strong className="text-white">Log Data:</strong> Like many other websites, GameVault makes use of log files. These files merely log visitors to the site – usually a standard procedure for hosting companies and a part of hosting services' analytics. The information inside the log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date/time stamp, referring/exit pages, and possibly the number of clicks.</li>
+                                <li><strong className="text-white">Personal Information:</strong> We only collect personal information such as names or email addresses when voluntarily submitted by our visitors through our contact form.</li>
+                            </ul>
+                        </section>
+
+                        <section className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6 md:p-8 border-primary-500/20">
+                            <h2 className="text-2xl font-bold text-white mb-4">3. Cookies and Web Beacons</h2>
+                            <p className="mb-4">
+                                GameVault uses cookies to store information about visitors' preferences, to record user-specific information on which pages the site visitor accesses or visits, and to personalize or customize our web page content based upon visitors' browser type or other information that the visitor sends via their browser.
+                            </p>
+                            <h3 className="text-xl font-semibold text-white mb-2">Google DoubleClick DART Cookie</h3>
+                            <ul className="list-disc list-inside space-y-2 ml-4 mb-4">
+                                <li>Google, as a third-party vendor, uses cookies to serve ads on GameVault.</li>
+                                <li>Google's use of the DART cookie enables it to serve ads to our site's visitors based upon their visit to GameVault and other sites on the Internet.</li>
+                                <li>Users may opt out of the use of the DART cookie by visiting the Google ad and content network privacy policy at the following URL – <a href="https://policies.google.com/technologies/ads" className="text-primary-400 hover:underline">https://policies.google.com/technologies/ads</a></li>
+                            </ul>
+                        </section>
+
+                        <section className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6 md:p-8">
+                            <h2 className="text-2xl font-bold text-white mb-4">4. Advertising Partners</h2>
+                            <p className="mb-4">
+                                Some of our advertising partners may use cookies and web beacons on our site. Our primary advertising partner is:
+                            </p>
+                            <div className="bg-dark-800 p-4 rounded-xl border border-dark-700 mb-4">
+                                <p className="text-white font-bold">Google AdSense</p>
+                                <p className="text-sm text-dark-400 mt-1">These third-party ad servers or ad networks use technology in their respective advertisements and links that appear on GameVault and which are sent directly to your browser. They automatically receive your IP address when this occurs.</p>
+                            </div>
+                            <p>
+                                GameVault has no access to or control over these cookies that are used by third-party advertisers. You should consult the respective privacy policies of these third-party ad servers for more detailed information on their practices.
+                            </p>
+                        </section>
+
+                        <section className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6 md:p-8 border-secondary-500/20">
+                            <h2 className="text-2xl font-bold text-white mb-4">5. Your Data Rights (GDPR & CCPA)</h2>
+                            <p className="mb-4">In accordance with CCPA and GDPR regulations, you have the following rights over your data:</p>
+                            <div className="grid md:grid-cols-2 gap-4">
+                                {[
+                                    { title: 'Right to Access', desc: 'You can request copies of your personal data.' },
+                                    { title: 'Right to Rectification', desc: 'You can request that we correct any information you believe is inaccurate.' },
+                                    { title: 'Right to Erasure', desc: 'You can request that we erase your personal data, under certain conditions.' },
+                                    { title: 'Right to Object', desc: 'You have the right to object to our processing of your personal data.' }
+                                ].map((right, i) => (
+                                    <div key={i} className="p-4 bg-dark-800 rounded-xl">
+                                        <p className="text-white font-semibold">{right.title}</p>
+                                        <p className="text-sm text-dark-400">{right.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+
+                        <section className="bg-dark-900/50 border border-dark-800 rounded-2xl p-6 md:p-8">
+                            <h2 className="text-2xl font-bold text-white mb-4">6. Contact Information</h2>
+                            <p>
+                                If you require any more information or have any questions about our privacy policy, please feel free to contact us by email at <a href="mailto:privacy@gamevault.com" className="text-primary-400 hover:underline">privacy@gamevault.com</a> or via our <Link href="/contact" className="text-primary-400 hover:underline">contact page</Link>.
+                            </p>
+                        </section>
+                    </div>
+                </div>
+            </main>
         </>
-  );
+    );
 }
-
-

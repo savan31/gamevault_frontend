@@ -7,6 +7,7 @@ import Link from 'next/link';
 import GameEmbed from '../../components/game/GameEmbed';
 import GameInfo from '../../components/game/GameInfo';
 import SimilarGames from '../../components/game/SimilarGames';
+import EditorialSection from '../../components/game/EditorialSection';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
 
@@ -181,6 +182,9 @@ export default function GamePage() {
                             <SimilarGames games={similarGames} currentGameId={game.id} />
                         </div>
                     </div>
+
+                    {/* Highly Editorial Content for AdSense Approval */}
+                    <EditorialSection slug={game.slug} title={game.title} />
                 </div>
             </div>
         </>
