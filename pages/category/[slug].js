@@ -102,8 +102,9 @@ export async function getStaticPaths() {
         const res = await fetch(`${API_URL}/categories`);
         if (!res.ok) return { paths: [], fallback: true };
 
-        const data = await res.json();
-        const categories = Array.isArray(data) ? data : data.categories || [];
+        const json = await res.json();
+        // Handle { success: true, data: [...] } structure
+        const categories = Array.isArray(json) ? json : (json.data || json.categories || []);
 
         const paths = categories.map((cat) => ({ params: { slug: cat.slug } }));
         console.log(`✅ Generated ${paths.length} category paths`);
@@ -120,14 +121,30 @@ export async function getStaticProps({ params }) {
 
     try {
         const res = await fetch(`${API_URL}/categories/${params.slug}`);
-        if (!res.ok) return { notFound: true };
 
-        const data = await res.json();
-        const category = data.category || data;
-        const games = data.games || [];
+        // If API returns 404 or other error
+        if (!res.ok) {
+            console.error(`Error fetching category ${params.slug}: Status ${res.status}`);
+            return { notFound: true };
+        }
+
+        const json = await res.json();
+
+        // Extract category data from response { success: true, data: { ...category, games: [...] } }
+        const categoryData = json.data || json;
+
+        if (!categoryData) {
+            return { notFound: true };
+        }
+
+        // Separate games from category if needed, though categoryData includes it
+        const games = categoryData.games || [];
 
         return {
-            props: { category, games },
+            props: {
+                category: categoryData,
+                games
+            },
             revalidate: 60,
         };
     } catch (err) {
