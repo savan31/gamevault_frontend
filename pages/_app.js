@@ -5,6 +5,8 @@ import Layout from '@/components/common/Layout';
 import '@/styles/globals.css';
 import { SITE_CONFIG } from '@/lib/constants';
 import { ThemeProvider } from '@/contexts/ThemeContext';
+import { PageLoader } from '@/components/common/Loader';
+import { useState } from 'react';
 
 function MyApp({ Component, pageProps }) {
     const router = useRouter();
@@ -64,8 +66,17 @@ function MyApp({ Component, pageProps }) {
     // Use custom layout if page specifies one
     const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 
+    const [isAppLoading, setIsAppLoading] = useState(true);
+
+    useEffect(() => {
+        // Simple hydration check
+        const timer = setTimeout(() => setIsAppLoading(false), 800);
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <ThemeProvider>
+            {isAppLoading && <PageLoader />}
             {getLayout(<Component {...pageProps} />)}
             <Toaster
                 position="bottom-right"

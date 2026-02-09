@@ -18,9 +18,10 @@ export default function Hero({ featuredGame }) {
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                     {/* Content */}
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
+                        initial={{ opacity: 0.01, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="relative z-10"
                     >
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display text-white mb-4">
                             Play <span className="text-gradient">Free Games</span> Instantly
@@ -74,10 +75,10 @@ export default function Hero({ featuredGame }) {
                                             {featuredGame.description}
                                         </p>
                                         <div className="flex items-center gap-3">
-                      <span className="btn-primary gap-2">
-                        <FiPlay className="w-4 h-4" />
-                        Play Now
-                      </span>
+                                            <span className="btn-primary gap-2">
+                                                <FiPlay className="w-4 h-4" />
+                                                Play Now
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

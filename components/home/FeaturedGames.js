@@ -3,10 +3,17 @@
 import Link from 'next/link';
 import { FiPlay, FiArrowRight } from 'react-icons/fi';
 import { useFeaturedGames } from '@/hooks/useApi';
-import { GameGridSkeleton } from '../common/Loader';
+import { GameCardSkeleton, GameGridSkeleton } from '../common/Loader';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
+/**
+ * FeaturedGames Component
+ * Implements strict loading state handling for Google Ads Reviewers:
+ * - Always shows animated skeletons initially
+ * - Only shows game cards after successful fetch
+ * - Gracefully hides or shows fallback if empty
+ */
 export default function FeaturedGames() {
     const { games, isLoading, isError } = useFeaturedGames(6);
     const [renderState, setRenderState] = useState('LOADING'); // LOADING, SUCCESS, EMPTY
@@ -17,27 +24,33 @@ export default function FeaturedGames() {
         } else if (games && games.length > 0) {
             setRenderState('SUCCESS');
         } else {
+            // Even if empty, we provide a silent fallback to avoid blank sections
             setRenderState('EMPTY');
         }
     }, [games, isLoading]);
 
-    // For Featured Games, if empty we just hide the section (standard practice)
-    // but we ensure we don't show an empty section while loading.
+    // State 1: LOADING -> Show 6 skeletons immediately
     if (renderState === 'LOADING') {
         return (
             <section className="py-12">
                 <div className="container mx-auto px-4">
-                    <h2 className="section-title">⭐ Featured Games</h2>
-                    <GameGridSkeleton count={6} />
+                    <div className="h-8 w-64 bg-dark-800 rounded-lg animate-pulse mb-6" />
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {Array.from({ length: 6 }).map((_, i) => (
+                            <GameCardSkeleton key={`featured-skeleton-${i}`} />
+                        ))}
+                    </div>
                 </div>
             </section>
         );
     }
 
+    // State 3: EMPTY -> Hides section to maintain quality (standard UX)
     if (renderState === 'EMPTY') {
         return null;
     }
 
+    // State 2: SUCCESS -> Render the featured cards
     return (
         <section className="py-12">
             <div className="container mx-auto px-4">

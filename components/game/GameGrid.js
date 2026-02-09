@@ -2,27 +2,14 @@
 
 import Link from 'next/link';
 import GameCard from './GameCard';
-
-// Professional animated skeleton card
-export const GameCardSkeleton = () => (
-    <div className="bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-700/50">
-        <div className="aspect-[4/3] bg-gray-700 animate-pulse" />
-        <div className="p-3 space-y-3">
-            <div className="h-4 w-3/4 bg-gray-700 rounded animate-pulse" />
-            <div className="flex items-center justify-between">
-                <div className="h-3 w-1/3 bg-gray-700 rounded animate-pulse" />
-                <div className="h-4 w-4 bg-gray-700 rounded-full animate-pulse" />
-            </div>
-        </div>
-    </div>
-);
+import { GameCardSkeleton } from '../common/Loader';
 
 /**
  * GameGrid Component
- * Strictly enforces three states:
- * 1. LOADING: Shows skeletons
- * 2. SUCCESS: Shows games
- * 3. EMPTY: Shows "No games found" ONLY after loading is confirmed false
+ * Strictly enforces three states for Google H5 Games Ads review:
+ * 1. LOADING: Shows premium shimmering skeletons
+ * 2. SUCCESS: Renders actual game cards
+ * 3. EMPTY: Shows "No games found" ONLY after loading completes
  */
 const GameGrid = ({
     games = [],
@@ -38,12 +25,13 @@ const GameGrid = ({
     const gamesArray = Array.isArray(games) ? games : [];
 
     // State 1: LOADING
+    // Never render "No games found" during this state
     if (isCurrentlyLoading && gamesArray.length === 0) {
         return (
             <div className="mb-8">
                 {title && (
                     <div className="flex items-center justify-between mb-6">
-                        <div className="h-8 w-48 bg-gray-800 rounded-lg animate-pulse" />
+                        <div className="h-8 w-48 bg-dark-800 rounded-lg animate-pulse" />
                     </div>
                 )}
                 <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-${columns} gap-4`}>
@@ -55,21 +43,21 @@ const GameGrid = ({
         );
     }
 
-    // State 3: EMPTY (Only if NOT loading and games array is empty)
+    // State 3: EMPTY (Only if NOT loading AND games array is empty)
     if (!isCurrentlyLoading && gamesArray.length === 0) {
         return (
-            <div className="text-center py-20 bg-gray-800/20 rounded-2xl border border-gray-700/50 my-8">
-                <div className="text-6xl mb-6 animate-bounce">🎮</div>
-                <h3 className="text-2xl font-bold text-white mb-2">No Games Found</h3>
-                <p className="text-gray-400 max-w-md mx-auto px-4">
-                    Wait a moment while we refresh our catalog, or try adjusting your filters.
+            <div className="text-center py-20 bg-dark-800/20 rounded-2xl border border-dark-700/50 my-8">
+                <div className="text-6xl mb-6">🎮</div>
+                <h3 className="text-2xl font-bold text-white mb-2">No Games Available</h3>
+                <p className="text-dark-400 max-w-md mx-auto px-4">
+                    Our team is currently updating the catalog. Please check back in a few moments.
                 </p>
                 {viewAllHref && (
                     <Link
                         href="/"
-                        className="mt-6 inline-block px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
+                        className="mt-6 inline-block px-6 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors"
                     >
-                        Reset Filters
+                        Browse All Games
                     </Link>
                 )}
             </div>
@@ -87,7 +75,7 @@ const GameGrid = ({
                     {showViewAll && viewAllHref && (
                         <Link
                             href={viewAllHref}
-                            className="text-purple-400 hover:text-purple-300 text-sm font-semibold flex items-center gap-1 transition-colors"
+                            className="text-primary-400 hover:text-primary-300 text-sm font-semibold flex items-center gap-1 transition-colors"
                         >
                             View All <span className="text-lg">→</span>
                         </Link>
