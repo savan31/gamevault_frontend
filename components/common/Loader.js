@@ -37,7 +37,7 @@ export function GameCardSkeleton() {
             </div>
 
             {/* Content Mockup */}
-            <div className="aspect-[4/3] bg-dark-700" />
+            <div className="aspect-video bg-dark-700" />
             <div className="p-3 space-y-3">
                 <div className="h-4 bg-dark-700 rounded w-3/4" />
                 <div className="flex items-center justify-between">

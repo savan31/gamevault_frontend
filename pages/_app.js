@@ -67,16 +67,31 @@ function MyApp({ Component, pageProps }) {
     const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 
     const [isAppLoading, setIsAppLoading] = useState(true);
+    const [isNavigating, setIsNavigating] = useState(false);
 
     useEffect(() => {
-        // Simple hydration check
+        // Initial app load / hydration
         const timer = setTimeout(() => setIsAppLoading(false), 800);
-        return () => clearTimeout(timer);
-    }, []);
+
+        // Handle route change loading states
+        const handleStart = () => setIsNavigating(true);
+        const handleStop = () => setIsNavigating(false);
+
+        router.events.on('routeChangeStart', handleStart);
+        router.events.on('routeChangeComplete', handleStop);
+        router.events.on('routeChangeError', handleStop);
+
+        return () => {
+            clearTimeout(timer);
+            router.events.off('routeChangeStart', handleStart);
+            router.events.off('routeChangeComplete', handleStop);
+            router.events.off('routeChangeError', handleStop);
+        };
+    }, [router.events]);
 
     return (
         <ThemeProvider>
-            {isAppLoading && <PageLoader />}
+            {(isAppLoading || isNavigating) && <PageLoader />}
             {getLayout(<Component {...pageProps} />)}
             <Toaster
                 position="bottom-right"

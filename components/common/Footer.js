@@ -10,7 +10,7 @@ export default function Footer() {
 
     // Only show categories that have games and match the allowed categories
     const allowedCategorySlugs = ['shooting', 'racing', 'sport', 'sports', 'multiplayer'];
-    
+
     const activeCategories = (categories || [])
         .filter(category => {
             const slug = category.slug?.toLowerCase() || '';
@@ -38,8 +38,8 @@ export default function Footer() {
                                 <IoGameController className="w-6 h-6 text-white" />
                             </div>
                             <span className="text-xl font-bold font-display text-white">
-                {SITE_CONFIG.name}
-              </span>
+                                {SITE_CONFIG.name}
+                            </span>
                         </Link>
                         <p className="text-dark-400 text-sm mb-4">
                             Play a handpicked collection of free online games—no downloads, no sign-ups. Just click and play instantly.
@@ -112,9 +112,14 @@ export default function Footer() {
 
                 {/* Bottom */}
                 <div className="pt-8 border-t border-dark-800 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-dark-500 text-sm">
-                        © {currentYear} {SITE_CONFIG.name}. All rights reserved.
-                    </p>
+                    <div className="flex flex-col gap-1">
+                        <p className="text-dark-500 text-sm">
+                            © {currentYear} {SITE_CONFIG.name}. All rights reserved.
+                        </p>
+                        <p className="text-dark-600 text-[10px] max-w-md">
+                            Disclaimer: All games and media are the property of their respective owners. GameVault does not claim ownership of any third-party games.
+                        </p>
+                    </div>
                     <p className="text-dark-500 text-sm">
                         Made with love for gamers everywhere
                     </p>
