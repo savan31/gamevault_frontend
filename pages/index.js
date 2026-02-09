@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import SEO from '@/components/common/SEO';
 import Hero from '@/components/home/Hero';
 import TrendingGames from '@/components/home/TrendingGames';
-import Categories from '@/components/home/Categories';
 import { useFeaturedGames } from '@/hooks/useApi';
 
 export default function HomePage() {
@@ -23,7 +22,6 @@ export default function HomePage() {
             <SEO title={pageTitle} />
             <Hero featuredGame={heroGame} />
             <TrendingGames />
-            <Categories />
         </>
     );
 }
