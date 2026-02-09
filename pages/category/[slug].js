@@ -88,7 +88,7 @@ export default function CategoryPage({ category: initialCategory, games: initial
 
                     <p className="text-gray-500 mb-6">{games?.length || 0} games</p>
 
-                    <GameGrid games={games || []} loading={false} />
+                    <GameGrid games={games || []} loading={loading} />
                 </div>
             </div>
         </>

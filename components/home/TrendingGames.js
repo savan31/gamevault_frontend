@@ -28,36 +28,36 @@ export default function TrendingGames() {
             }
         }, 5000); // Show fallback after 5 seconds if no games loaded
 
-        return () =& gt; clearTimeout(timer);
+        return () => clearTimeout(timer);
     }, [games]);
 
     // Prepare games list with fallback
     let displayGames = games || [];
 
     // If API failed or is slow, ensure we have at least the demo game
-    if ((isError || showFallback || displayGames.length === 0) & amp;& amp; !isLoading) {
+    if ((isError || showFallback || displayGames.length === 0) && !isLoading) {
         displayGames = [FALLBACK_DEMO_GAME];
     }
 
     return (
-        & lt;section id = "trending" className = "py-12" & gt;
-            & lt;div className = "container mx-auto px-4" & gt;
-                & lt;div className = "flex items-center justify-between mb-6" & gt;
-                    & lt;h2 className = "section-title mb-0 flex items-center gap-2" & gt;
-                        & lt;FiTrendingUp className = "w-8 h-8 text-primary-500" /& gt;
+        <section id="trending" className="py-12">
+            <div className="container mx-auto px-4">
+                <div className="flex items-center justify-between mb-6">
+                    <h2 className="section-title mb-0 flex items-center gap-2">
+                        <FiTrendingUp className="w-8 h-8 text-primary-500" />
                         Trending Now
-        & lt;/h2&gt;
-                    & lt; Link
-    href = "/?sortBy=plays"
-    className = "text-primary-400 hover:text-primary-300 flex items-center gap-1 font-medium"
-        & gt;
+                    </h2>
+                    <Link
+                        href="/?sortBy=plays"
+                        className="text-primary-400 hover:text-primary-300 flex items-center gap-1 font-medium"
+                    >
                         View All
-        & lt;FiArrowRight className = "w-4 h-4" /& gt;
-                    & lt;/Link&gt;
-                & lt;/div&gt;
+                        <FiArrowRight className="w-4 h-4" />
+                    </Link>
+                </div>
 
-                & lt;GameGrid games = { displayGames } loading = { isLoading } columns = { 6} /& gt;
-            & lt;/div&gt;
-        & lt;/section&gt;
+                <GameGrid games={displayGames} loading={isLoading} columns={6} />
+            </div>
+        </section>
     );
 }

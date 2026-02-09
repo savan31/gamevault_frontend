@@ -25,45 +25,43 @@ const DEMO_FALLBACK_GAME = {
 };
 
 // Skeleton component
-const GameDetailSkeleton = () =& gt; (
-    & lt;div className = "min-h-screen bg-gray-900" & gt;
-        & lt;div className = "bg-black" & gt;
-            & lt;div className = "max-w-6xl mx-auto" & gt;
-                & lt;div className = "w-full aspect-video bg-gray-800 animate-pulse" /& gt;
-            & lt;/div&gt;
-        & lt;/div&gt;
-        & lt;div className = "max-w-6xl mx-auto px-4 py-8" & gt;
-            & lt;div className = "grid grid-cols-1 lg:grid-cols-3 gap-8" & gt;
-                & lt;div className = "lg:col-span-2 space-y-6" & gt;
-                    & lt;div className = "h-8 w-2/3 bg-gray-700 rounded animate-pulse" /& gt;
-                    & lt;div className = "flex gap-4" & gt;
-                        & lt;div className = "h-6 w-24 bg-gray-700 rounded-full animate-pulse" /& gt;
-                        & lt;div className = "h-6 w-20 bg-gray-700 rounded animate-pulse" /& gt;
-                    & lt;/div&gt;
-                    & lt;div className = "bg-gray-800 rounded-xl p-6 space-y-3" & gt;
-                        & lt;div className = "h-6 w-32 bg-gray-700 rounded animate-pulse" /& gt;
-                        & lt;div className = "h-4 w-full bg-gray-700 rounded animate-pulse" /& gt;
-                        & lt;div className = "h-4 w-full bg-gray-700 rounded animate-pulse" /& gt;
-                        & lt;div className = "h-4 w-3/4 bg-gray-700 rounded animate-pulse" /& gt;
-                    & lt;/div&gt;
-                & lt;/div&gt;
-                & lt;div className = "space-y-4" & gt;
-                    & lt;div className = "h-6 w-32 bg-gray-700 rounded animate-pulse" /& gt;
-{
-    [1, 2, 3, 4].map((i) =& gt; (
-                        & lt;div key = { i } className = "flex gap-3" & gt;
-                            & lt;div className = "w-24 h-16 bg-gray-700 rounded-lg animate-pulse" /& gt;
-                            & lt;div className = "flex-1 space-y-2" & gt;
-                                & lt;div className = "h-4 w-3/4 bg-gray-700 rounded animate-pulse" /& gt;
-                                & lt;div className = "h-3 w-1/2 bg-gray-700 rounded animate-pulse" /& gt;
-                            & lt;/div&gt;
-                        & lt;/div&gt;
-                    ))
-}
-                & lt;/div&gt;
-            & lt;/div&gt;
-        & lt;/div&gt;
-    & lt;/div&gt;
+const GameDetailSkeleton = () => (
+    <div className="min-h-screen bg-gray-900">
+        <div className="bg-black">
+            <div className="max-w-6xl mx-auto">
+                <div className="w-full aspect-video bg-gray-800 animate-pulse" />
+            </div>
+        </div>
+        <div className="max-w-6xl mx-auto px-4 py-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2 space-y-6">
+                    <div className="h-8 w-2/3 bg-gray-700 rounded animate-pulse" />
+                    <div className="flex gap-4">
+                        <div className="h-6 w-24 bg-gray-700 rounded-full animate-pulse" />
+                        <div className="h-6 w-20 bg-gray-700 rounded animate-pulse" />
+                    </div>
+                    <div className="bg-gray-800 rounded-xl p-6 space-y-3">
+                        <div className="h-6 w-32 bg-gray-700 rounded animate-pulse" />
+                        <div className="h-4 w-full bg-gray-700 rounded animate-pulse" />
+                        <div className="h-4 w-full bg-gray-700 rounded animate-pulse" />
+                        <div className="h-4 w-3/4 bg-gray-700 rounded animate-pulse" />
+                    </div>
+                </div>
+                <div className="space-y-4">
+                    <div className="h-6 w-32 bg-gray-700 rounded animate-pulse" />
+                    {[1, 2, 3, 4].map((i) => (
+                        <div key={i} className="flex gap-3">
+                            <div className="w-24 h-16 bg-gray-700 rounded-lg animate-pulse" />
+                            <div className="flex-1 space-y-2">
+                                <div className="h-4 w-3/4 bg-gray-700 rounded animate-pulse" />
+                                <div className="h-3 w-1/2 bg-gray-700 rounded animate-pulse" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </div>
 );
 
 export default function GamePage() {
@@ -75,7 +73,7 @@ export default function GamePage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() =& gt; {
+    useEffect(() => {
         if (!slug) return;
 
         // If it's explicitly the demo game, use the fallback immediately
@@ -86,7 +84,7 @@ export default function GamePage() {
             return;
         }
 
-        const fetchGameData = async() =& gt; {
+        const fetchGameData = async () => {
             setLoading(true);
             setError(null);
 
@@ -133,59 +131,58 @@ export default function GamePage() {
 
     // Show skeleton while loading
     if (loading || router.isFallback) {
-        return & lt; GameDetailSkeleton /& gt;;
+        return <GameDetailSkeleton />;
     }
 
     // Handle errors
     if (error || !game) {
         return (
-            & lt;div className = "min-h-screen flex items-center justify-center" & gt;
-                & lt;div className = "text-center" & gt;
-                    & lt;div className = "text-6xl mb-4" & gt;😢& lt;/div&gt;
-                    & lt;h1 className = "text-2xl font-bold text-white mb-2" & gt;Game Not Found & lt;/h1&gt;
-                    & lt;p className = "text-gray-400 mb-4" & gt;The game you & amp; apos;re looking for doesn & amp; apos; t exist.& lt;/p&gt;
-                    & lt; Link
-        href = "/"
-        className = "px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg text-white transition-colors inline-block"
-            & gt;
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                    <div className="text-6xl mb-4">😢</div>
+                    <h1 className="text-2xl font-bold text-white mb-2">Game Not Found</h1>
+                    <p className="text-gray-400 mb-4">The game you're looking for doesn't exist.</p>
+                    <Link
+                        href="/"
+                        className="px-6 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg text-white transition-colors inline-block"
+                    >
                         Back to Home
-            & lt;/Link&gt;
-                & lt;/div&gt;
-            & lt;/div&gt;
+                    </Link>
+                </div>
+            </div>
         );
     }
 
     return (
-        & lt;& gt;
-            & lt; Head & gt;
-                & lt; title & gt; { game.title } - Play Free on GameVault & lt;/title&gt;
-                & lt;meta name = "description" content = { game.description || `Play ${game.title} for free on GameVault` } /& gt;
-                & lt;meta property = "og:title" content = {`${game.title} - GameVault`
-} /&gt;
-                & lt;meta property = "og:description" content = { game.description || `Play ${game.title} for free` } /& gt;
-                & lt;meta property = "og:image" content = {`/${game.title}.png`} /&gt;
-            & lt;/Head&gt;
+        <>
+            <Head>
+                <title>{game.title} - Play Free on GameVault</title>
+                <meta name="description" content={game.description || `Play ${game.title} for free on GameVault`} />
+                <meta property="og:title" content={`${game.title} - GameVault`} />
+                <meta property="og:description" content={game.description || `Play ${game.title} for free`} />
+                <meta property="og:image" content={`/${game.title}.png`} />
+            </Head>
 
-            & lt;div className = "min-h-screen bg-gray-900" & gt;
-{/* Game Embed */ }
-                & lt;div className = "bg-black" & gt;
-                    & lt;div className = "max-w-6xl mx-auto" & gt;
-                        & lt;GameEmbed game = { game } /& gt;
-                    & lt;/div&gt;
-                & lt;/div&gt;
+            <div className="min-h-screen bg-gray-900">
+                {/* Game Embed */}
+                <div className="bg-black">
+                    <div className="max-w-6xl mx-auto">
+                        <GameEmbed game={game} />
+                    </div>
+                </div>
 
-{/* Game Info &amp; Similar Games */ }
-                & lt;div className = "max-w-6xl mx-auto px-4 py-8" & gt;
-                    & lt;div className = "grid grid-cols-1 lg:grid-cols-3 gap-8" & gt;
-                        & lt;div className = "lg:col-span-2" & gt;
-                            & lt;GameInfo game = { game } /& gt;
-                        & lt;/div&gt;
-                        & lt; div & gt;
-                            & lt;SimilarGames games = { similarGames } currentGameId = { game.id } /& gt;
-                        & lt;/div&gt;
-                    & lt;/div&gt;
-                & lt;/div&gt;
-            & lt;/div&gt;
-        & lt;/&gt;
+                {/* Game Info & Similar Games */}
+                <div className="max-w-6xl mx-auto px-4 py-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div className="lg:col-span-2">
+                            <GameInfo game={game} />
+                        </div>
+                        <div>
+                            <SimilarGames games={similarGames} currentGameId={game.id} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
     );
 }
